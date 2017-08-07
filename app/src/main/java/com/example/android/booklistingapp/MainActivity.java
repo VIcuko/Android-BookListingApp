@@ -9,7 +9,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -30,13 +29,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        ExpandableListView listView;
         mProgressBar = (ProgressBar) findViewById(R.id.progress_bar);
         mEmptyView = (TextView) findViewById(R.id.empty_view);
 
         if (isOnline()) {
 
-            ListView listView = (ExpandableListView) findViewById(R.id.list);
-
+            listView = (ExpandableListView) findViewById(R.id.list);
             listView.setEmptyView(mEmptyView);
 
             mAdapter = new BookAdapter(this, new ArrayList<Book>());
