@@ -12,13 +12,15 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity {
 
     private ProgressBar mProgressBar;
     private TextView mEmptyView;
     private ImageView mSearchButton;
     private TextInputEditText mSearchText;
-//    private BookAdapter mAdapter;
+    private BookAdapter mAdapter;
     private static final String GOOGLE_BOOKS_REQUEST_URL = "https://www.googleapis.com/books/v1/volumes?q=";
     public static final String LOG_TAG = MainActivity.class.getName();
 
@@ -36,9 +38,9 @@ public class MainActivity extends AppCompatActivity {
 
             listView.setEmptyView(mEmptyView);
 
-//            mAdapter = new BookAdapter(this, new ArrayList<Book>());
+            mAdapter = new BookAdapter(this, new ArrayList<Book>());
 
-//            listView.setAdapter(mAdapter);
+            listView.setAdapter(mAdapter);
         }
         else{
             mProgressBar.setVisibility(View.GONE);
