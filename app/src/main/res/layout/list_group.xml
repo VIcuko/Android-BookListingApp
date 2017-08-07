@@ -40,6 +40,7 @@
         android:layout_below="@id/title"
         android:layout_toRightOf="@id/book_image"
         android:textAppearance="?android:textAppearanceSmall"
+        android:textColor="@color/secondary_text_color"
         tools:text="Sarah J. Maas" />
 
     <TextView
@@ -49,6 +50,7 @@
         android:layout_alignParentRight="true"
         android:layout_below="@id/title"
         android:textAppearance="?android:textAppearanceSmall"
+        android:textColor="@color/secondary_text_color"
         tools:text="2017" />
 
 </RelativeLayout>
