@@ -7,5 +7,7 @@
     <dimen name="horizontal_padding">16dp</dimen>
     <dimen name="vertical_padding">16dp</dimen>
 
+    <dimen name="search_icon_side">24dp</dimen>
+
 
 </resources>
