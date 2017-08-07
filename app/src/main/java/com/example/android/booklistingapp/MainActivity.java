@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
@@ -34,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
 
         if (isOnline()) {
 
-            ListView listView = (ListView) findViewById(R.id.list);
+            ListView listView = (ExpandableListView) findViewById(R.id.list);
 
             listView.setEmptyView(mEmptyView);
 

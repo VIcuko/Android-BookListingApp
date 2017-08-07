@@ -1,14 +1,22 @@
 package com.example.android.booklistingapp;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 
+import static com.example.android.booklistingapp.MainActivity.LOG_TAG;
 import static com.example.android.booklistingapp.R.id.description_text;
 import static com.example.android.booklistingapp.R.id.isbn_code;
 
@@ -58,6 +66,26 @@ public class BookAdapter extends BaseExpandableListAdapter {
 
         TextView year = (TextView) convertView.findViewById(R.id.published_year);
         year.setText(mbooks.get(i).getPublishedDate().substring(0,3));
+
+        ImageView bookThumbnail = (ImageView) convertView.findViewById(R.id.book_image);
+        String bookUrl = mbooks.get(i).getThumbnailURL();
+
+        URL imageUrl = null;
+        try {
+            imageUrl = new URL(bookUrl);
+        }
+        catch(MalformedURLException e){
+            Log.e(LOG_TAG, "Error creating url for book thumbnail: " + e);
+        }
+
+        Bitmap bmp = null;
+        try {
+            bmp = BitmapFactory.decodeStream(imageUrl.openConnection().getInputStream());
+        }
+        catch(IOException e){
+            Log.e(LOG_TAG, "Error creating url for book thumbnail: " + e);
+        }
+        bookThumbnail.setImageBitmap(bmp);
 
         return convertView;
     }
