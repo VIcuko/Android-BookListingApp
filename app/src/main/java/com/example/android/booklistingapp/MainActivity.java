@@ -6,6 +6,7 @@ import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
@@ -32,6 +33,22 @@ public class MainActivity extends AppCompatActivity {
         ExpandableListView listView;
         mProgressBar = (ProgressBar) findViewById(R.id.progress_bar);
         mEmptyView = (TextView) findViewById(R.id.empty_view);
+
+        mSearchButton = (ImageView) findViewById(R.id.search_icon);
+        mSearchButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
+        mSearchText = (TextInputEditText) findViewById(R.id.search_field);
+        mSearchText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
+                return false;
+            }
+        });
 
         if (isOnline()) {
 
