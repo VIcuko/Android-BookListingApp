@@ -9,6 +9,9 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import static com.example.android.booklistingapp.R.id.description_text;
+import static com.example.android.booklistingapp.R.id.isbn_code;
+
 /**
  * Created by Vicuko on 7/8/17.
  */
@@ -40,23 +43,23 @@ public class BookAdapter extends BaseExpandableListAdapter {
     }
 
     @Override
-    public View getGroupView(int i, boolean b, View groupView, ViewGroup viewGroup) {
-        if (groupView == null) {
+    public View getGroupView(int i, boolean b, View convertView, ViewGroup viewGroup) {
+        if (convertView == null) {
             LayoutInflater infalInflater = (LayoutInflater) mContext
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            groupView = infalInflater.inflate(R.layout.list_group, null);
+            convertView = infalInflater.inflate(R.layout.list_group, null);
         }
 
-        TextView title = (TextView) groupView.findViewById(R.id.title);
+        TextView title = (TextView) convertView.findViewById(R.id.title);
         title.setText(mbooks.get(i).getTitle());
 
-        TextView author = (TextView) groupView.findViewById(R.id.author);
+        TextView author = (TextView) convertView.findViewById(R.id.author);
         author.setText(parseAuthors(mbooks.get(i).getAuthors()));
 
-        TextView year = (TextView) groupView.findViewById(R.id.published_year);
+        TextView year = (TextView) convertView.findViewById(R.id.published_year);
         year.setText(mbooks.get(i).getPublishedDate().substring(0,3));
 
-        return groupView;
+        return convertView;
     }
 
     @Override
@@ -64,16 +67,37 @@ public class BookAdapter extends BaseExpandableListAdapter {
         return mbooks.size();
     }
 
+    @Override
+    public long getChildId(int i, int i1) {
+        return i;
+    }
 
     @Override
     public Object getChild(int i, int i1) {
         return mbooks.get(i);
     }
 
-
     @Override
-    public long getChildId(int i, int i1) {
-        return 0;
+    public View getChildView(int i, int i1, boolean b, View convertView, ViewGroup viewGroup) {
+        if (convertView == null) {
+            LayoutInflater infalInflater = (LayoutInflater) mContext
+                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            convertView = infalInflater.inflate(R.layout.list_item, null);
+        }
+
+        TextView descriptionLabel = (TextView) convertView.findViewById(R.id.descripton_label);
+        descriptionLabel.setText(R.string.description_label);
+
+        TextView descriptionText = (TextView) convertView.findViewById(description_text);
+        descriptionText.setText(mbooks.get(i).getDescription());
+
+        TextView isbnLabel = (TextView) convertView.findViewById(R.id.isbn_label);
+        isbnLabel.setText(R.string.isbn_label);
+
+        TextView isbnCode = (TextView) convertView.findViewById(isbn_code);
+        isbnCode.setText(mbooks.get(i).getIsbn());
+
+        return convertView;
     }
 
     @Override
@@ -81,11 +105,6 @@ public class BookAdapter extends BaseExpandableListAdapter {
         return false;
     }
 
-
-    @Override
-    public View getChildView(int i, int i1, boolean b, View view, ViewGroup viewGroup) {
-        return null;
-    }
 
     @Override
     public boolean isChildSelectable(int i, int i1) {
