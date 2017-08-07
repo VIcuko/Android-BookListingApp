@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
         mSearchText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
-                return false;
+                return true;
             }
         });
 
