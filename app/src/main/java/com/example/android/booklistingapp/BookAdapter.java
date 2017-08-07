@@ -141,7 +141,7 @@ public class BookAdapter extends BaseExpandableListAdapter {
 
     private String parseAuthors(ArrayList<String> authors) {
         String authorsTogether="";
-        if (authors != null || authors.get(0) != null) {
+        if (authors != null && authors.get(0) != null) {
             for (int i = 0; i < authors.size(); i++) {
                 authorsTogether.concat(authors.get(i).toString());
                 String separator;
