@@ -15,12 +15,11 @@ public class Book {
     String mIsbn;
     String mThumbnailURL;
 
-    public Book(String title, ArrayList<String> authors, String publisher, String description,
+    public Book(String title, ArrayList<String> authors, String description,
                 String publishedDate, String isbn, String thumbnailUrl){
 
         mTitle = title;
         mAuthors = authors;
-        mPublisher = publisher;
         mDescription = description;
         mPublishedDate = publishedDate;
         mIsbn = isbn;
@@ -33,10 +32,6 @@ public class Book {
 
     public ArrayList<String> getAuthors(){
         return mAuthors;
-    }
-
-    public String getPublisher(){
-        return mPublisher;
     }
 
     public String getDescription(){
