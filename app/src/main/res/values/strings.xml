@@ -3,6 +3,6 @@
 
     <string name="search_label">Search:</string>
 
-    <string name="no_connection">Sorry, but it seems you don't have internet connection</string>
+    <string name="no_connection">Sorry, but it seems you don\'t have internet connection</string>
 
 </resources>

@@ -24,7 +24,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:textColor="@color/secondary_text_color"
-            android:textSize="@dimen/item_text_size"
+            android:textAppearance="?android:textAppearanceMedium"
             tools:text="64km North of" />
 
         <TextView
@@ -32,34 +32,9 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:textColor="@color/primary_text_color"
-            android:textSize="@dimen/location_text_size"
+            android:textAppearance="?android:textAppearanceMedium"
             tools:text="San Francisco" />
 
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="3"
-        android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/date"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="end"
-            android:textColor="@color/secondary_text_color"
-            android:textSize="@dimen/item_text_size"
-            tools:text="Feb 2, 2016" />
-
-        <TextView
-            android:id="@+id/time"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="end"
-            android:textColor="@color/secondary_text_color"
-            android:textSize="@dimen/item_text_size"
-            tools:text="10:45 AM" />
     </LinearLayout>
 
 </LinearLayout>
