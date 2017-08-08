@@ -8,9 +8,9 @@
     android:drawSelectorOnTop="true"
     android:orientation="horizontal"
     android:paddingBottom="@dimen/vertical_padding"
-    android:paddingLeft="@dimen/horizontal_padding"
     android:paddingRight="@dimen/horizontal_padding"
-    android:paddingTop="@dimen/vertical_padding">
+    android:paddingTop="@dimen/vertical_padding"
+    android:paddingLeft="?android:attr/expandableListPreferredChildPaddingLeft">
 
 
     <ImageView
@@ -20,7 +20,8 @@
         android:layout_centerVertical="true"
         android:adjustViewBounds="true"
         android:paddingRight="@dimen/vertical_padding"
-        tools:src="@drawable/book_sample" />
+        tools:src="@drawable/book_sample"
+        android:visibility="gone"/>
 
     <TextView
         android:id="@+id/title"

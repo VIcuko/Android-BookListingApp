@@ -13,7 +13,9 @@
         android:paddingBottom="@dimen/vertical_padding"
         android:paddingLeft="@dimen/horizontal_padding"
         android:paddingRight="@dimen/horizontal_padding"
-        android:paddingTop="@dimen/vertical_padding">
+        android:paddingTop="@dimen/vertical_padding"
+        android:descendantFocusability="beforeDescendants"
+        android:focusableInTouchMode="true">
 
         <ImageView
             android:id="@+id/search_icon"

@@ -106,10 +106,10 @@ public final class QueryUtils {
                 JSONObject bookInfo = features.getJSONObject(i);
                 JSONObject properties = bookInfo.getJSONObject("volumeInfo");
 
-                String title = properties.has("title")? properties.getString("title") : "";
+                String title = properties.has("title") ? properties.getString("title") : "";
 
                 ArrayList<String> authors = new ArrayList<String>();
-                JSONArray jArray = properties.has("authors")? properties.getJSONArray("authors") : null;
+                JSONArray jArray = properties.has("authors") ? properties.getJSONArray("authors") : null;
                 if (jArray != null) {
                     for (int j = 0; j < jArray.length(); j++) {
                         authors.add(jArray.getString(j));
@@ -124,10 +124,10 @@ public final class QueryUtils {
 
                 String url = "";
                 if (imageLinks != null) {
-                     url = imageLinks.has("smallThumbnail") ? imageLinks.getString("smallThumbnail") : "";
+                    url = imageLinks.has("smallThumbnail") ? imageLinks.getString("smallThumbnail") : "";
                 }
 
-                JSONArray industryIdentifiers = properties.has("industryIdentifiers")? properties.getJSONArray("industryIdentifiers") : null;
+                JSONArray industryIdentifiers = properties.has("industryIdentifiers") ? properties.getJSONArray("industryIdentifiers") : null;
 
                 String isbn = "";
                 if (industryIdentifiers != null) {
@@ -135,9 +135,12 @@ public final class QueryUtils {
                     for (int k = 0; k < industryIdentifiers.length(); k++) {
                         JSONObject isbnObject = industryIdentifiers.getJSONObject(k);
                         String isbnType = isbnObject.getString("type");
-
-                        if (isbnType == "ISBN_13") {
+                        if (industryIdentifiers.length() == 1) {
                             isbn = isbnObject.getString("identifier");
+                        } else {
+                            if (Integer.parseInt(isbnType.substring(5)) == 13) {
+                                isbn = isbnObject.has("identifier") ? isbnObject.getString("identifier") : "";
+                            }
                         }
                     }
                 }

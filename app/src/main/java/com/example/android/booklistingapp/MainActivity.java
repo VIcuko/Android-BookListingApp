@@ -8,6 +8,7 @@ import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
@@ -46,6 +47,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         mSearchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                mSearchText.clearFocus();
                 mEmptyView.setVisibility(View.GONE);
                 launchQuery(mSearchText.getText().toString());
             }
@@ -113,7 +115,17 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
                 mListView.setAdapter(mAdapter);
 
-            } else {
+                mListView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
+                    @Override
+                    public boolean onGroupClick(ExpandableListView expandableListView, View view, int i, long l) {
+                        Log.d("onGroupClick:", "worked");
+                        expandableListView.expandGroup(i);
+                        return false;
+                    }
+                });
+
+            }
+            else {
                 mProgressBar.setVisibility(View.GONE);
                 mEmptyView.setText(R.string.no_connection);
             }
