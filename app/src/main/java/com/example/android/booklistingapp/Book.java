@@ -9,7 +9,6 @@ import java.util.ArrayList;
 public class Book {
     String mTitle;
     ArrayList<String> mAuthors;
-    String mPublisher;
     String mDescription;
     String mPublishedDate;
     String mIsbn;

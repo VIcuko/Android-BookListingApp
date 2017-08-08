@@ -3,7 +3,6 @@ package com.example.android.booklistingapp;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,12 +10,10 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.io.IOException;
-import java.net.MalformedURLException;
+import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
 
-import static com.example.android.booklistingapp.MainActivity.LOG_TAG;
 import static com.example.android.booklistingapp.R.id.description_text;
 import static com.example.android.booklistingapp.R.id.isbn_code;
 
@@ -28,6 +25,7 @@ public class BookAdapter extends BaseExpandableListAdapter {
 
     private Context mContext;
     private ArrayList<Book> mbooks;
+    private Bitmap bmp;
 
 
     public BookAdapter(Context context, ArrayList<Book> booksArrayList) {
@@ -64,28 +62,24 @@ public class BookAdapter extends BaseExpandableListAdapter {
         TextView author = (TextView) convertView.findViewById(R.id.author);
         author.setText(parseAuthors(mbooks.get(i).getAuthors()));
 
-        TextView year = (TextView) convertView.findViewById(R.id.published_year);
-        year.setText(mbooks.get(i).getPublishedDate().substring(0,3));
+//        TextView year = (TextView) convertView.findViewById(R.id.published_year);
+//        year.setText(mbooks.get(i).getPublishedDate().substring(0,4));
 
-        ImageView bookThumbnail = (ImageView) convertView.findViewById(R.id.book_image);
-        String bookUrl = mbooks.get(i).getThumbnailURL();
+        final ImageView bookThumbnail = (ImageView) convertView.findViewById(R.id.book_image);
+        final String bookUrl = mbooks.get(i).getThumbnailURL();
 
-        URL imageUrl = null;
-        try {
-            imageUrl = new URL(bookUrl);
-        }
-        catch(MalformedURLException e){
-            Log.e(LOG_TAG, "Error creating url for book thumbnail: " + e);
-        }
 
-        Bitmap bmp = null;
-        try {
-            bmp = BitmapFactory.decodeStream(imageUrl.openConnection().getInputStream());
-        }
-        catch(IOException e){
-            Log.e(LOG_TAG, "Error creating url for book thumbnail: " + e);
-        }
-        bookThumbnail.setImageBitmap(bmp);
+//        new AsyncTask<Void, Void, Void>() {
+//            @Override
+//            protected Void doInBackground(Void... params) {
+                try {
+                    InputStream in = new URL(bookUrl).openStream();
+                    bmp = BitmapFactory.decodeStream(in);
+                    if (bmp != null)
+                        bookThumbnail.setImageBitmap(bmp);
+                } catch (Exception e) {
+                    // log error
+                }
 
         return convertView;
     }
@@ -141,17 +135,17 @@ public class BookAdapter extends BaseExpandableListAdapter {
 
     private String parseAuthors(ArrayList<String> authors) {
         String authorsTogether="";
-        if (authors != null && authors.get(0) != null) {
+        if (authors != null) {
             for (int i = 0; i < authors.size(); i++) {
-                authorsTogether.concat(authors.get(i).toString());
+                authorsTogether = authorsTogether.concat(authors.get(i).toString());
                 String separator;
                 if (i==authors.size()-2){
                     separator = " and ";
                 }
                 else {
-                    separator = (i == (authors.size() - 1)) ? (".") : (", ");
+                    separator = (i == (authors.size() - 1)) ? ("") : (", ");
                 }
-                authorsTogether.concat(separator);
+                authorsTogether = authorsTogether.concat(separator);
             }
         }
         return authorsTogether;

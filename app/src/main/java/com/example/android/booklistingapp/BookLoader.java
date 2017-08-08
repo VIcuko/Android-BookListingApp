@@ -9,7 +9,7 @@ import java.util.List;
  * Created by Vicuko on 8/8/17.
  */
 
-public class BookLoader extends AsyncTaskLoader {
+public class BookLoader extends AsyncTaskLoader<List<Book>> {
 
     private final String LOG_TAG = BookLoader.class.getName();
     private String mUrl;
@@ -25,7 +25,7 @@ public class BookLoader extends AsyncTaskLoader {
     }
 
     @Override
-    public Object loadInBackground() {
+    public List<Book> loadInBackground() {
         if (mUrl == null || mUrl == "") {
             return null;
         }

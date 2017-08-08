@@ -63,7 +63,7 @@ public final class QueryUtils {
                 Log.e(LOG_TAG, "Error response code: " + urlConnection.getResponseCode());
             }
         } catch (IOException e) {
-            Log.e(LOG_TAG, "Problem retrieving the earthquake JSON results.", e);
+            Log.e(LOG_TAG, "Problem retrieving the book JSON results.", e);
         } finally {
             if (urlConnection != null) {
                 urlConnection.disconnect();
@@ -89,16 +89,16 @@ public final class QueryUtils {
         return output.toString();
     }
 
-    public static ArrayList<Book> extractBooks(String earthquakeJSON) {
+    public static ArrayList<Book> extractBooks(String bookJSON) {
 
-        if (TextUtils.isEmpty(earthquakeJSON)) {
+        if (TextUtils.isEmpty(bookJSON)) {
             return null;
         }
 
-        ArrayList<Book> books= new ArrayList<>();
+        ArrayList<Book> books = new ArrayList<>();
 
         try {
-            JSONObject jsonObj = new JSONObject(earthquakeJSON);
+            JSONObject jsonObj = new JSONObject(bookJSON);
 
             JSONArray features = jsonObj.getJSONArray("items");
 
@@ -106,33 +106,39 @@ public final class QueryUtils {
                 JSONObject bookInfo = features.getJSONObject(i);
                 JSONObject properties = bookInfo.getJSONObject("volumeInfo");
 
-                String title = properties.getString("title");
+                String title = properties.has("title")? properties.getString("title") : "";
 
-                ArrayList<String> authors= new ArrayList<String>();
-                JSONArray jArray = properties.getJSONArray("authors");
+                ArrayList<String> authors = new ArrayList<String>();
+                JSONArray jArray = properties.has("authors")? properties.getJSONArray("authors") : null;
                 if (jArray != null) {
-                    for (int j=0;j<jArray.length();j++){
+                    for (int j = 0; j < jArray.length(); j++) {
                         authors.add(jArray.getString(j));
                     }
                 }
 
-                String publishedDate = properties.getString("publishedDate");
+                String publishedDate = properties.has("publishedDate") ? properties.getString("publishedDate") : "";
 
-                String description = properties.getString("description");
+                String description = properties.has("description") ? properties.getString("description") : "";
 
-                JSONObject imageLinks = properties.getJSONObject("imageLinks");
-                String url = imageLinks.getString("smallThumbnail");
+                JSONObject imageLinks = properties.has("imageLinks") ? properties.getJSONObject("imageLinks") : null;
 
-                JSONArray industryIdentifiers = properties.getJSONArray("industryIdentifiers");
+                String url = "";
+                if (imageLinks != null) {
+                     url = imageLinks.has("smallThumbnail") ? imageLinks.getString("smallThumbnail") : "";
+                }
+
+                JSONArray industryIdentifiers = properties.has("industryIdentifiers")? properties.getJSONArray("industryIdentifiers") : null;
 
                 String isbn = "";
+                if (industryIdentifiers != null) {
 
-                for (int k=0; k<industryIdentifiers.length();k++) {
-                    JSONObject isbnObject = industryIdentifiers.getJSONObject(k);
-                    String isbnType = isbnObject.getString("type");
+                    for (int k = 0; k < industryIdentifiers.length(); k++) {
+                        JSONObject isbnObject = industryIdentifiers.getJSONObject(k);
+                        String isbnType = isbnObject.getString("type");
 
-                    if (isbnType == "ISBN_13"){
-                        isbn = isbnObject.getString("identifier");
+                        if (isbnType == "ISBN_13") {
+                            isbn = isbnObject.getString("identifier");
+                        }
                     }
                 }
 
@@ -141,7 +147,7 @@ public final class QueryUtils {
             }
 
         } catch (JSONException e) {
-            Log.e("QueryUtils", "Problem parsing the earthquake JSON results", e);
+            Log.e("QueryUtils", "Problem parsing the book JSON results", e);
         }
 
         return books;
@@ -155,7 +161,7 @@ public final class QueryUtils {
         } catch (IOException e) {
             Log.e(LOG_TAG, "Problem making the HTTP request.", e);
         }
-        List<Book> books= extractBooks(jsonResponse);
+        List<Book> books = extractBooks(jsonResponse);
 
         return books;
     }

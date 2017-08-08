@@ -10,6 +10,7 @@ import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.View;
+import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -26,6 +27,8 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     private ImageView mSearchButton;
     private TextInputEditText mSearchText;
     private BookAdapter mAdapter;
+    private String mQueryText;
+    private ExpandableListView mListView;
     private static final String GOOGLE_BOOKS_REQUEST_URL = "https://www.googleapis.com/books/v1/volumes?q=";
     public static final String LOG_TAG = MainActivity.class.getName();
     private static final int BOOK_LOADER_ID = 1;
@@ -52,7 +55,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             @Override
             public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
                 launchQuery(mSearchText.getText().toString());
-                return true;
+                return false;
             }
         });
     }
@@ -66,35 +69,47 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
     @Override
     public Loader<List<Book>> onCreateLoader(int i, Bundle bundle) {
-        return null;
+        return new BookLoader(this, GOOGLE_BOOKS_REQUEST_URL + mQueryText);
     }
 
     @Override
     public void onLoadFinished(Loader<List<Book>> loader, List<Book> books) {
+        ExpandableListAdapter adapter = new BookAdapter(this, new ArrayList<Book>());
+        mListView.setAdapter(adapter);
 
+        if (books != null && !books.isEmpty()) {
+            mAdapter = new BookAdapter(this, (ArrayList<Book>) books);
+            mListView.setAdapter(mAdapter);
+        }
+        mProgressBar.setVisibility(View.GONE);
+        mEmptyView.setText(R.string.empty_view_text);
     }
 
     @Override
     public void onLoaderReset(Loader<List<Book>> loader) {
-
+        ExpandableListAdapter adapter = new BookAdapter(this, new ArrayList<Book>());
+        mListView.setAdapter(adapter);
     }
 
     private void launchQuery(String searchText) {
-        ExpandableListView listView;
+        mQueryText = searchText;
 
         if (searchText != null && searchText != "") {
 
             if (isOnline()) {
+                mEmptyView.setVisibility(View.GONE);
+                mProgressBar.setVisibility(View.VISIBLE);
 
                 LoaderManager loaderManager = getLoaderManager();
                 loaderManager.initLoader(BOOK_LOADER_ID, null, this);
 
-                listView = (ExpandableListView) findViewById(R.id.list);
-                listView.setEmptyView(mEmptyView);
+                mListView = (ExpandableListView) findViewById(R.id.list);
+                mListView.setEmptyView(mEmptyView);
 
                 mAdapter = new BookAdapter(this, new ArrayList<Book>());
 
-                listView.setAdapter(mAdapter);
+                mListView.setAdapter(mAdapter);
+
             } else {
                 mProgressBar.setVisibility(View.GONE);
                 mEmptyView.setText(R.string.no_connection);
@@ -103,6 +118,5 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         else{
             Toast.makeText(this, "You need to introduce some text to search", Toast.LENGTH_LONG);
         }
-
     }
 }
