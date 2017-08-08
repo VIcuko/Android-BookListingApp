@@ -48,6 +48,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             @Override
             public void onClick(View view) {
                 mSearchText.clearFocus();
+                mEmptyView.setText("");
                 mEmptyView.setVisibility(View.GONE);
                 launchQuery(mSearchText.getText().toString());
             }
