@@ -8,7 +8,6 @@ import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
-import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
@@ -47,17 +46,22 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         mSearchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                mEmptyView.setVisibility(View.GONE);
                 launchQuery(mSearchText.getText().toString());
             }
         });
 
-        mSearchText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
-                launchQuery(mSearchText.getText().toString());
-                return false;
-            }
-        });
+//        mSearchText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+//            @Override
+//            public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
+//                boolean handled = false;
+//                if (i == EditorInfo.IME_ACTION_SEND) {
+//                    mEmptyView.setVisibility(View.GONE);
+//                    launchQuery(mSearchText.getText().toString());
+//                    handled = true;}
+//                return handled;
+//            }
+//        });
     }
 
     public boolean isOnline() {
@@ -97,7 +101,6 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         if (searchText != null && searchText != "") {
 
             if (isOnline()) {
-                mEmptyView.setVisibility(View.GONE);
                 mProgressBar.setVisibility(View.VISIBLE);
 
                 LoaderManager loaderManager = getLoaderManager();

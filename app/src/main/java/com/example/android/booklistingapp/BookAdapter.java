@@ -3,6 +3,7 @@ package com.example.android.booklistingapp;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -62,24 +63,34 @@ public class BookAdapter extends BaseExpandableListAdapter {
         TextView author = (TextView) convertView.findViewById(R.id.author);
         author.setText(parseAuthors(mbooks.get(i).getAuthors()));
 
-//        TextView year = (TextView) convertView.findViewById(R.id.published_year);
-//        year.setText(mbooks.get(i).getPublishedDate().substring(0,4));
+        TextView year = (TextView) convertView.findViewById(R.id.published_year);
+        if (mbooks.get(i).getPublishedDate() != null && !mbooks.get(i).getPublishedDate().isEmpty()) {
+            year.setText(mbooks.get(i).getPublishedDate().substring(0, 4));
+        }
 
         final ImageView bookThumbnail = (ImageView) convertView.findViewById(R.id.book_image);
         final String bookUrl = mbooks.get(i).getThumbnailURL();
 
 
-//        new AsyncTask<Void, Void, Void>() {
-//            @Override
-//            protected Void doInBackground(Void... params) {
+        new AsyncTask<Void, Void, Void>() {
+            @Override
+            protected Void doInBackground(Void... params) {
                 try {
                     InputStream in = new URL(bookUrl).openStream();
                     bmp = BitmapFactory.decodeStream(in);
-                    if (bmp != null)
-                        bookThumbnail.setImageBitmap(bmp);
                 } catch (Exception e) {
                     // log error
                 }
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(Void result) {
+                if (bmp != null)
+                    bookThumbnail.setImageBitmap(bmp);
+            }
+
+        }.execute();
 
         return convertView;
     }
