@@ -2,7 +2,6 @@ package com.example.android.booklistingapp;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,8 +9,6 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.io.InputStream;
-import java.net.URL;
 import java.util.ArrayList;
 
 import static com.example.android.booklistingapp.R.id.description_text;
@@ -74,19 +71,19 @@ public class BookAdapter extends BaseExpandableListAdapter {
 //        new AsyncTask<Void, Void, Void>() {
 //            @Override
 //            protected Void doInBackground(Void... params) {
-                try {
-                    InputStream in = new URL(bookUrl).openStream();
-                    bmp = BitmapFactory.decodeStream(in);
-                } catch (Exception e) {
-                    // log error
-                }
+//                try {
+//                    InputStream in = new URL(bookUrl).openStream();
+//                    bmp = BitmapFactory.decodeStream(in);
+//                } catch (Exception e) {
+//                    // log error
+//                }
 //                return null;
 //            }
 //
 //            @Override
 //            protected void onPostExecute(Void result) {
-                if (bmp != null)
-                    bookThumbnail.setImageBitmap(bmp);
+//                if (bmp != null)
+//                    bookThumbnail.setImageBitmap(bmp);
 //            }
 //
 //        }.execute();
