@@ -3,7 +3,6 @@ package com.example.android.booklistingapp;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.os.AsyncTask;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -72,25 +71,25 @@ public class BookAdapter extends BaseExpandableListAdapter {
         final String bookUrl = mbooks.get(i).getThumbnailURL();
 
 
-        new AsyncTask<Void, Void, Void>() {
-            @Override
-            protected Void doInBackground(Void... params) {
+//        new AsyncTask<Void, Void, Void>() {
+//            @Override
+//            protected Void doInBackground(Void... params) {
                 try {
                     InputStream in = new URL(bookUrl).openStream();
                     bmp = BitmapFactory.decodeStream(in);
                 } catch (Exception e) {
                     // log error
                 }
-                return null;
-            }
-
-            @Override
-            protected void onPostExecute(Void result) {
+//                return null;
+//            }
+//
+//            @Override
+//            protected void onPostExecute(Void result) {
                 if (bmp != null)
                     bookThumbnail.setImageBitmap(bmp);
-            }
-
-        }.execute();
+//            }
+//
+//        }.execute();
 
         return convertView;
     }
@@ -141,7 +140,7 @@ public class BookAdapter extends BaseExpandableListAdapter {
 
     @Override
     public boolean isChildSelectable(int i, int i1) {
-        return false;
+        return true;
     }
 
     private String parseAuthors(ArrayList<String> authors) {
