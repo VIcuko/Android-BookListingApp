@@ -19,7 +19,6 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:paddingBottom="@dimen/book_title_bottom_padding"
-        android:paddingLeft="@dimen/horizontal_padding"
         android:textAppearance="?android:textAppearanceSmallPopupMenu"
         android:textColor="@color/primary_text_color"
         tools:text="Description:" />
