@@ -107,7 +107,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             if (isOnline()) {
                 mProgressBar.setVisibility(View.VISIBLE);
 
-                mLoaderManager.initLoader(BOOK_LOADER_ID, null, this);
+                mLoaderManager.restartLoader(BOOK_LOADER_ID, null, this);
 
                 mAdapter = new BookAdapter(this, new ArrayList<Book>());
 
