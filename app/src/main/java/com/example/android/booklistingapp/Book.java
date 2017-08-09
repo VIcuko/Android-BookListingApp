@@ -1,5 +1,7 @@
 package com.example.android.booklistingapp;
 
+import android.graphics.Bitmap;
+
 import java.util.ArrayList;
 
 /**
@@ -13,9 +15,10 @@ public class Book {
     String mPublishedDate;
     String mIsbn;
     String mThumbnailURL;
+    Bitmap mThumbnailBitmap;
 
     public Book(String title, ArrayList<String> authors, String description,
-                String publishedDate, String isbn, String thumbnailUrl){
+                String publishedDate, String isbn, String thumbnailUrl, Bitmap thumbnailBitmap){
 
         mTitle = title;
         mAuthors = authors;
@@ -23,6 +26,7 @@ public class Book {
         mPublishedDate = publishedDate;
         mIsbn = isbn;
         mThumbnailURL = thumbnailUrl;
+        mThumbnailBitmap = thumbnailBitmap;
     }
 
     public String getTitle(){

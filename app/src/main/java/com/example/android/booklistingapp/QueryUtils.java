@@ -1,5 +1,7 @@
 package com.example.android.booklistingapp;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -122,9 +124,22 @@ public final class QueryUtils {
 
                 JSONObject imageLinks = properties.has("imageLinks") ? properties.getJSONObject("imageLinks") : null;
 
-                String url = "";
+                String urlString="";
+                Bitmap bitmap = null;
+
                 if (imageLinks != null) {
-                    url = imageLinks.has("smallThumbnail") ? imageLinks.getString("smallThumbnail") : "";
+                    urlString = imageLinks.has("smallThumbnail") ? imageLinks.getString("smallThumbnail") : "";
+                    try {
+                        URL url = new URL(urlString);
+                        bitmap = BitmapFactory.decodeStream(url.openConnection().getInputStream());
+                    }
+                    catch (MalformedURLException e) {
+                        e.printStackTrace();
+                    }
+                    catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
                 }
 
                 JSONArray industryIdentifiers = properties.has("industryIdentifiers") ? properties.getJSONArray("industryIdentifiers") : null;
@@ -145,7 +160,7 @@ public final class QueryUtils {
                     }
                 }
 
-                Book book = new Book(title, authors, description, publishedDate, isbn, url);
+                Book book = new Book(title, authors, description, publishedDate, isbn, urlString, bitmap);
                 books.add(book);
             }
 
