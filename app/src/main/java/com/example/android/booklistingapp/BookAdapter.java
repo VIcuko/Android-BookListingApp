@@ -13,9 +13,6 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import static com.example.android.booklistingapp.R.id.description_text;
-import static com.example.android.booklistingapp.R.id.isbn_code;
-
 /**
  * Created by Vicuko on 7/8/17.
  */
@@ -47,13 +44,10 @@ public class BookAdapter extends ArrayAdapter<Book> {
         author.setText(parseAuthors(book.getAuthors()));
 
         TextView year = (TextView) convertView.findViewById(R.id.published_year);
-        if (book.getPublishedDate() != null && !mbooks.get(i).getPublishedDate().isEmpty()) {
-            year.setText(book.getPublishedDate().substring(0, 4));
-        }
+        year.setText(book.getPublishedDate());
 
         final ImageView bookThumbnail = (ImageView) convertView.findViewById(R.id.book_image);
-        final String bookUrl = mbooks.get(i).getThumbnailURL();
-
+        final String bookUrl = book.getThumbnailURL();
 
 //        new AsyncTask<Void, Void, Void>() {
 //            @Override
@@ -78,54 +72,28 @@ public class BookAdapter extends ArrayAdapter<Book> {
         return convertView;
     }
 
-    @Override
-    public int getChildrenCount(int i) {
-        return mbooks.size();
-    }
-
-    @Override
-    public long getChildId(int i, int i1) {
-        return i;
-    }
-
-    @Override
-    public Object getChild(int i, int i1) {
-        return mbooks.get(i);
-    }
-
-    @Override
-    public View getChildView(int i, int i1, boolean b, View convertView, ViewGroup viewGroup) {
-        if (convertView == null) {
-            LayoutInflater infalInflater = (LayoutInflater) mContext
-                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = infalInflater.inflate(R.layout.list_item, null);
-        }
-
-        TextView descriptionLabel = (TextView) convertView.findViewById(R.id.descripton_label);
-        descriptionLabel.setText(R.string.description_label);
-
-        TextView descriptionText = (TextView) convertView.findViewById(description_text);
-        descriptionText.setText(mbooks.get(i).getDescription());
-
-        TextView isbnLabel = (TextView) convertView.findViewById(R.id.isbn_label);
-        isbnLabel.setText(R.string.isbn_label);
-
-        TextView isbnCode = (TextView) convertView.findViewById(isbn_code);
-        isbnCode.setText(mbooks.get(i).getIsbn());
-
-        return convertView;
-    }
-
-    @Override
-    public boolean hasStableIds() {
-        return false;
-    }
-
-
-    @Override
-    public boolean isChildSelectable(int i, int i1) {
-        return true;
-    }
+//    @Override
+//    public View getChildView(int i, int i1, boolean b, View convertView, ViewGroup viewGroup) {
+//        if (convertView == null) {
+//            LayoutInflater infalInflater = (LayoutInflater) mContext
+//                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+//            convertView = infalInflater.inflate(R.layout.list_item, null);
+//        }
+//
+//        TextView descriptionLabel = (TextView) convertView.findViewById(R.id.descripton_label);
+//        descriptionLabel.setText(R.string.description_label);
+//
+//        TextView descriptionText = (TextView) convertView.findViewById(description_text);
+//        descriptionText.setText(mbooks.get(i).getDescription());
+//
+//        TextView isbnLabel = (TextView) convertView.findViewById(R.id.isbn_label);
+//        isbnLabel.setText(R.string.isbn_label);
+//
+//        TextView isbnCode = (TextView) convertView.findViewById(isbn_code);
+//        isbnCode.setText(mbooks.get(i).getIsbn());
+//
+//        return convertView;
+//    }
 
     private String parseAuthors(ArrayList<String> authors) {
         String authorsTogether="";
