@@ -116,7 +116,7 @@ public final class QueryUtils {
                     }
                 }
 
-                String publishedDate = properties.has("publishedDate") ? properties.getString("publishedDate") : "";
+                String publishedDate = properties.has("publishedDate") ? properties.getString("publishedDate").substring(0,4) : "";
 
                 String description = properties.has("description") ? properties.getString("description") : "";
 

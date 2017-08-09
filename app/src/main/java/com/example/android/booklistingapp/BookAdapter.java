@@ -2,10 +2,12 @@ package com.example.android.booklistingapp;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseExpandableListAdapter;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -18,50 +20,35 @@ import static com.example.android.booklistingapp.R.id.isbn_code;
  * Created by Vicuko on 7/8/17.
  */
 
-public class BookAdapter extends BaseExpandableListAdapter {
+public class BookAdapter extends ArrayAdapter<Book> {
 
     private Context mContext;
     private ArrayList<Book> mbooks;
     private Bitmap bmp;
 
 
-    public BookAdapter(Context context, ArrayList<Book> booksArrayList) {
-        mContext = context;
-        mbooks = booksArrayList;
+    public BookAdapter(Context context, ArrayList<Book> bookArray) {
+        super(context, 0, bookArray);
     }
 
     @Override
-    public int getGroupCount() {
-        return mbooks.size();
-    }
-
-    @Override
-    public long getGroupId(int i) {
-        return i;
-    }
-
-    @Override
-    public Object getGroup(int i) {
-        return mbooks.get(i);
-    }
-
-    @Override
-    public View getGroupView(int i, boolean b, View convertView, ViewGroup viewGroup) {
-        if (convertView == null) {
-            LayoutInflater infalInflater = (LayoutInflater) mContext
-                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = infalInflater.inflate(R.layout.list_group, null);
+    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+        View listView = convertView;
+        if (listView == null) {
+            listView = LayoutInflater.from(getContext()).inflate(R.layout.list_item, parent, false);
         }
 
+        Book book = getItem(position);
+
         TextView title = (TextView) convertView.findViewById(R.id.title);
-        title.setText(mbooks.get(i).getTitle());
+        title.setText(book.getTitle());
 
         TextView author = (TextView) convertView.findViewById(R.id.author);
-        author.setText(parseAuthors(mbooks.get(i).getAuthors()));
+        author.setText(parseAuthors(book.getAuthors()));
 
         TextView year = (TextView) convertView.findViewById(R.id.published_year);
-        if (mbooks.get(i).getPublishedDate() != null && !mbooks.get(i).getPublishedDate().isEmpty()) {
-            year.setText(mbooks.get(i).getPublishedDate().substring(0, 4));
+        if (book.getPublishedDate() != null && !mbooks.get(i).getPublishedDate().isEmpty()) {
+            year.setText(book.getPublishedDate().substring(0, 4));
         }
 
         final ImageView bookThumbnail = (ImageView) convertView.findViewById(R.id.book_image);
