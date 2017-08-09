@@ -9,4 +9,7 @@
     <string name="empty_view_text">Sorry, it seems there weren\'t any results for your search</string>
     <string name="no_connection">Sorry, but it seems you don\'t have internet connection</string>
 
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
 </resources>

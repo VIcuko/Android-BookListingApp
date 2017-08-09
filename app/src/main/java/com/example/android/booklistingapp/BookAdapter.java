@@ -1,6 +1,7 @@
 package com.example.android.booklistingapp;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -9,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -35,7 +37,7 @@ public class BookAdapter extends ArrayAdapter<Book> {
             listView = LayoutInflater.from(getContext()).inflate(R.layout.list_group, parent, false);
         }
 
-        Book book = getItem(position);
+        final Book book = getItem(position);
 
         TextView title = (TextView) listView.findViewById(R.id.title);
         title.setText(book.getTitle());
@@ -48,6 +50,18 @@ public class BookAdapter extends ArrayAdapter<Book> {
 
         final ImageView bookThumbnail = (ImageView) listView.findViewById(R.id.book_image);
         bookThumbnail.setImageBitmap(book.getBitmap());
+
+        RelativeLayout itemLayout = (RelativeLayout) listView.findViewById(R.id.item_layout);
+        View.OnClickListener onClickListener = new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                Intent detailsIntent = new Intent(getContext(), DetailsFragment.class);
+                detailsIntent.putExtra("description", book.getDescription()).putExtra("isbn", book.getIsbn());
+                getContext().startActivity(detailsIntent);
+            }
+        };
+        itemLayout.setOnClickListener(onClickListener);
 
         return listView;
     }
