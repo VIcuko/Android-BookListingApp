@@ -37,16 +37,16 @@ public class BookAdapter extends ArrayAdapter<Book> {
 
         Book book = getItem(position);
 
-        TextView title = (TextView) convertView.findViewById(R.id.title);
+        TextView title = (TextView) listView.findViewById(R.id.title);
         title.setText(book.getTitle());
 
-        TextView author = (TextView) convertView.findViewById(R.id.author);
+        TextView author = (TextView) listView.findViewById(R.id.author);
         author.setText(parseAuthors(book.getAuthors()));
 
-        TextView year = (TextView) convertView.findViewById(R.id.published_year);
+        TextView year = (TextView) listView.findViewById(R.id.published_year);
         year.setText(book.getPublishedDate());
 
-        final ImageView bookThumbnail = (ImageView) convertView.findViewById(R.id.book_image);
+        final ImageView bookThumbnail = (ImageView) listView.findViewById(R.id.book_image);
         final String bookUrl = book.getThumbnailURL();
 
 //        new AsyncTask<Void, Void, Void>() {
@@ -69,7 +69,7 @@ public class BookAdapter extends ArrayAdapter<Book> {
 //
 //        }.execute();
 
-        return convertView;
+        return listView;
     }
 
 //    @Override
