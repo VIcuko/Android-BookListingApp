@@ -66,29 +66,6 @@ public class BookAdapter extends ArrayAdapter<Book> {
         return listView;
     }
 
-//    @Override
-//    public View getChildView(int i, int i1, boolean b, View convertView, ViewGroup viewGroup) {
-//        if (convertView == null) {
-//            LayoutInflater infalInflater = (LayoutInflater) mContext
-//                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-//            convertView = infalInflater.inflate(R.layout.list_item, null);
-//        }
-//
-//        TextView descriptionLabel = (TextView) convertView.findViewById(R.id.descripton_label);
-//        descriptionLabel.setText(R.string.description_label);
-//
-//        TextView descriptionText = (TextView) convertView.findViewById(description_text);
-//        descriptionText.setText(mbooks.get(i).getDescription());
-//
-//        TextView isbnLabel = (TextView) convertView.findViewById(R.id.isbn_label);
-//        isbnLabel.setText(R.string.isbn_label);
-//
-//        TextView isbnCode = (TextView) convertView.findViewById(isbn_code);
-//        isbnCode.setText(mbooks.get(i).getIsbn());
-//
-//        return convertView;
-//    }
-
     private String parseAuthors(ArrayList<String> authors) {
         String authorsTogether="";
         if (authors != null) {
