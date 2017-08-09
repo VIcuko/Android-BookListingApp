@@ -56,7 +56,7 @@ public class BookAdapter extends ArrayAdapter<Book> {
 
             @Override
             public void onClick(View view) {
-                Intent detailsIntent = new Intent(getContext(), DetailsFragment.class);
+                Intent detailsIntent = new Intent(getContext(), DetailsActivity.class);
                 detailsIntent.putExtra("description", book.getDescription()).putExtra("isbn", book.getIsbn());
                 getContext().startActivity(detailsIntent);
             }
