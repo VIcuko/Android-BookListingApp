@@ -63,5 +63,4 @@
         android:textColor="@color/primary_text_color"
         tools:text="ISBN:" />
 
-
 </RelativeLayout>
