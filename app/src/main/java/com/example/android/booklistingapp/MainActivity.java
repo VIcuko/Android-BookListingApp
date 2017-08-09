@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -28,7 +29,8 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     private TextInputEditText mSearchText;
     private BookAdapter mAdapter;
     private String mQueryText;
-    private ExpandableListView mListView;
+    private ListView mListView;
+    private LoaderManager mLoaderManager;
     private static final String GOOGLE_BOOKS_REQUEST_URL = "https://www.googleapis.com/books/v1/volumes?q=";
     public static final String LOG_TAG = MainActivity.class.getName();
     private static final int BOOK_LOADER_ID = 1;
@@ -38,8 +40,13 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        mLoaderManager = getLoaderManager();
+
         mProgressBar = (ProgressBar) findViewById(R.id.progress_bar);
         mEmptyView = (TextView) findViewById(R.id.empty_view);
+
+        mListView = (ListView) findViewById(R.id.list);
+        mListView.setEmptyView(mEmptyView);
 
         mSearchButton = (ImageView) findViewById(R.id.search_icon);
         mSearchText = (TextInputEditText) findViewById(R.id.search_field);
@@ -81,12 +88,10 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
     @Override
     public void onLoadFinished(Loader<List<Book>> loader, List<Book> books) {
-        ExpandableListAdapter adapter = new BookAdapter(this, new ArrayList<Book>());
-        mListView.setAdapter(adapter);
+        mAdapter.clear();
 
         if (books != null && !books.isEmpty()) {
-            mAdapter = new BookAdapter(this, (ArrayList<Book>) books);
-            mListView.setAdapter(mAdapter);
+            mAdapter.addAll(books);
         }
         mProgressBar.setVisibility(View.GONE);
         mEmptyView.setText(R.string.empty_view_text);
@@ -94,36 +99,22 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
     @Override
     public void onLoaderReset(Loader<List<Book>> loader) {
-        ExpandableListAdapter adapter = new BookAdapter(this, new ArrayList<Book>());
-        mListView.setAdapter(adapter);
+        mAdapter.clear();
     }
 
     private void launchQuery(String searchText) {
         mQueryText = searchText;
 
-        if (searchText != null && searchText != "") {
+        if (!searchText.isEmpty() && searchText != null) {
 
             if (isOnline()) {
                 mProgressBar.setVisibility(View.VISIBLE);
 
-                LoaderManager loaderManager = getLoaderManager();
-                loaderManager.initLoader(BOOK_LOADER_ID, null, this);
-
-                mListView = (ExpandableListView) findViewById(R.id.list);
-                mListView.setEmptyView(mEmptyView);
+                mLoaderManager.initLoader(BOOK_LOADER_ID, null, this);
 
                 mAdapter = new BookAdapter(this, new ArrayList<Book>());
 
                 mListView.setAdapter(mAdapter);
-
-                mListView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
-                    @Override
-                    public boolean onGroupClick(ExpandableListView expandableListView, View view, int i, long l) {
-                        Log.d("onGroupClick:", "worked");
-                        expandableListView.expandGroup(i);
-                        return false;
-                    }
-                });
 
             }
             else {
@@ -132,7 +123,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             }
         }
         else{
-            Toast.makeText(this, "You need to introduce some text to search", Toast.LENGTH_LONG);
+            Toast.makeText(this, "You need to introduce some text to search", Toast.LENGTH_LONG).show();
         }
     }
 }
