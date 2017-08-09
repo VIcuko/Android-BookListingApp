@@ -52,4 +52,8 @@ public class Book {
     public String getThumbnailURL(){
         return mThumbnailURL;
     }
+
+    public Bitmap getBitmap(){
+        return mThumbnailBitmap;
+    }
 }
