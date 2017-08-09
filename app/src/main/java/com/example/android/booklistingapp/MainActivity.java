@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
@@ -107,6 +108,10 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
             if (isOnline()) {
                 mProgressBar.setVisibility(View.VISIBLE);
+
+                InputMethodManager imm = (InputMethodManager)
+                        getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(mSearchText.getWindowToken() ,InputMethodManager.HIDE_NOT_ALWAYS);
 
                 mLoaderManager.restartLoader(BOOK_LOADER_ID, null, this);
 
