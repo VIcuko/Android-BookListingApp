@@ -8,7 +8,9 @@ import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -52,24 +54,20 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         mSearchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mSearchText.clearFocus();
-                mEmptyView.setText("");
-                mEmptyView.setVisibility(View.GONE);
                 launchQuery(mSearchText.getText().toString());
             }
         });
 
-//        mSearchText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-//            @Override
-//            public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
-//                boolean handled = false;
-//                if (i == EditorInfo.IME_ACTION_SEND) {
-//                    mEmptyView.setVisibility(View.GONE);
-//                    launchQuery(mSearchText.getText().toString());
-//                    handled = true;}
-//                return handled;
-//            }
-//        });
+        mSearchText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
+                boolean handled = false;
+                if (actionId == EditorInfo.IME_ACTION_SEND) {
+                    launchQuery(mSearchText.getText().toString());
+                    handled = true;}
+                return handled;
+            }
+        });
     }
 
 
@@ -102,6 +100,9 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     }
 
     private void launchQuery(String searchText) {
+        mSearchText.clearFocus();
+        mEmptyView.setText("");
+        mEmptyView.setVisibility(View.GONE);
         mQueryText = searchText;
 
         if (!searchText.isEmpty() && searchText != null) {
