@@ -47,7 +47,9 @@ public class BookAdapter extends ArrayAdapter<Book> {
         year.setText(book.getPublishedDate());
 
         final ImageView bookThumbnail = (ImageView) listView.findViewById(R.id.book_image);
-        final String bookUrl = book.getThumbnailURL();
+        bookThumbnail.setImageBitmap(book.getBitmap());
+//        final String bookUrl = book.getThumbnailURL();
+
 
 //        new AsyncTask<Void, Void, Void>() {
 //            @Override
