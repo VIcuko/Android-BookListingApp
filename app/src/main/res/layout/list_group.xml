@@ -22,35 +22,48 @@
         android:paddingRight="@dimen/vertical_padding"
         tools:src="@drawable/book_sample" />
 
+    <ImageView
+        android:id="@+id/right_arrow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_chevron_right_black_24dp"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:paddingLeft="@dimen/small_horizontal_padding"
+        />
+
     <TextView
         android:id="@+id/title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_toRightOf="@id/book_image"
+        android:layout_toLeftOf="@id/right_arrow"
         android:paddingBottom="@dimen/book_title_bottom_padding"
         android:textAppearance="?android:textAppearanceLarge"
         android:textColor="@color/primary_text_color"
         tools:text="Trono de Cristal #1 / Throne of Glass #1" />
 
     <TextView
+        android:id="@+id/published_year"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/title"
+        android:layout_toLeftOf="@id/right_arrow"
+        android:paddingLeft="@dimen/small_horizontal_padding"
+        android:textAppearance="?android:textAppearanceSmall"
+        android:textColor="@color/secondary_text_color"
+        tools:text="2017" />
+
+    <TextView
         android:id="@+id/author"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/title"
+        android:layout_toLeftOf="@id/published_year"
         android:layout_toRightOf="@id/book_image"
         android:textAppearance="?android:textAppearanceSmall"
         android:textColor="@color/secondary_text_color"
         tools:text="Sarah J. Maas" />
-
-    <TextView
-        android:id="@+id/published_year"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_below="@id/title"
-        android:textAppearance="?android:textAppearanceSmall"
-        android:textColor="@color/secondary_text_color"
-        tools:text="2017" />
 
 </RelativeLayout>

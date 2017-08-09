@@ -7,6 +7,8 @@
     <dimen name="horizontal_padding">16dp</dimen>
     <dimen name="vertical_padding">16dp</dimen>
 
+    <dimen name="small_horizontal_padding">16dp</dimen>
+
     <dimen name="search_icon_side">24dp</dimen>
 
     <dimen name="book_title_bottom_padding">8dp</dimen>
