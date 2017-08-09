@@ -37,7 +37,7 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/search_label"
                 android:inputType="textAutoComplete"
-                android:imeOptions="actionSend"/>
+                android:imeOptions="actionSearch"/>
 
         </android.support.design.widget.TextInputLayout>
 
