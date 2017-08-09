@@ -61,7 +61,7 @@
             android:layout_centerInParent="true"
             android:visibility="gone"/>
 
-        <ExpandableListView
+        <ListView
             android:id="@+id/list"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />

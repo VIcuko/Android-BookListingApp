@@ -32,7 +32,7 @@ public class BookAdapter extends ArrayAdapter<Book> {
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         View listView = convertView;
         if (listView == null) {
-            listView = LayoutInflater.from(getContext()).inflate(R.layout.list_item, parent, false);
+            listView = LayoutInflater.from(getContext()).inflate(R.layout.list_group, parent, false);
         }
 
         Book book = getItem(position);
