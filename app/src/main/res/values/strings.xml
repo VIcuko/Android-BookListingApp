@@ -2,8 +2,8 @@
     <string name="app_name">Book Listing App</string>
 
     <string name="search_label">Search:</string>
-    <string name="description_label">Search:</string>
-    <string name="isbn_label">Search:</string>
+    <string name="description_label">Description:</string>
+    <string name="isbn_label">ISBN:</string>
 
     <string name="introduction_text">Please, introduce a word and click on search or press Enter</string>
     <string name="empty_view_text">Sorry, it seems there weren\'t any results for your search</string>
