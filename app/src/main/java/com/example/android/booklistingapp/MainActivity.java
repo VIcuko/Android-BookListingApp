@@ -132,6 +132,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             }
         } else {
             mProgressBar.setVisibility(View.GONE);
+            mEmptyView.setVisibility(View.VISIBLE);
             mEmptyView.setText(R.string.no_connection);
         }
     }
