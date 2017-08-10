@@ -42,11 +42,18 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
         mLoaderManager = getLoaderManager();
 
+        if (savedInstanceState != null){
+            mLoaderManager.initLoader(BOOK_LOADER_ID, null, MainActivity.this);
+        }
+
         mProgressBar = (ProgressBar) findViewById(R.id.progress_bar);
         mEmptyView = (TextView) findViewById(R.id.empty_view);
 
         mListView = (ListView) findViewById(R.id.list);
         mListView.setEmptyView(mEmptyView);
+
+        mAdapter = new BookAdapter(this, new ArrayList<Book>());
+        mListView.setAdapter(mAdapter);
 
         mSearchButton = (ImageView) findViewById(R.id.search_icon);
         mSearchText = (TextInputEditText) findViewById(R.id.search_field);
@@ -100,6 +107,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     }
 
     private void launchQuery(String searchText) {
+        mAdapter.clear();
         mSearchText.clearFocus();
         mEmptyView.setText("");
         mEmptyView.setVisibility(View.GONE);
@@ -114,11 +122,12 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                         getSystemService(Context.INPUT_METHOD_SERVICE);
                 imm.hideSoftInputFromWindow(mSearchText.getWindowToken() ,InputMethodManager.HIDE_NOT_ALWAYS);
 
-                mLoaderManager.restartLoader(BOOK_LOADER_ID, null, this);
-
-                mAdapter = new BookAdapter(this, new ArrayList<Book>());
-
-                mListView.setAdapter(mAdapter);
+                if (mLoaderManager.getLoader(BOOK_LOADER_ID) != null) {
+                    mLoaderManager.restartLoader(BOOK_LOADER_ID, null, MainActivity.this);
+                }
+                else{
+                    mLoaderManager.initLoader(BOOK_LOADER_ID, null, MainActivity.this);
+                }
 
             }
             else {

@@ -11,7 +11,6 @@ import java.util.List;
 
 public class BookLoader extends AsyncTaskLoader<List<Book>> {
 
-    private final String LOG_TAG = BookLoader.class.getName();
     private String mUrl;
 
     public BookLoader(Context context, String url) {

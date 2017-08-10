@@ -9,13 +9,13 @@
         android:id="@+id/search_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:descendantFocusability="beforeDescendants"
+        android:focusableInTouchMode="true"
         android:orientation="vertical"
         android:paddingBottom="@dimen/vertical_padding"
         android:paddingLeft="@dimen/horizontal_padding"
         android:paddingRight="@dimen/horizontal_padding"
-        android:paddingTop="@dimen/vertical_padding"
-        android:descendantFocusability="beforeDescendants"
-        android:focusableInTouchMode="true">
+        android:paddingTop="@dimen/vertical_padding">
 
         <ImageView
             android:id="@+id/search_icon"
@@ -36,8 +36,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/search_label"
-                android:inputType="textAutoComplete"
-                android:imeOptions="actionSearch"/>
+                android:imeOptions="actionSearch"
+                android:inputType="textAutoComplete" />
 
         </android.support.design.widget.TextInputLayout>
 
@@ -61,7 +61,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:visibility="gone"/>
+            android:visibility="gone" />
 
         <ListView
             android:id="@+id/list"
@@ -74,8 +74,8 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:gravity="center"
-            android:textAppearance="?android:textAppearanceMedium"
-            android:text="@string/introduction_text"/>
+            android:text="@string/introduction_text"
+            android:textAppearance="?android:textAppearanceMedium" />
     </RelativeLayout>
 
 </RelativeLayout>
