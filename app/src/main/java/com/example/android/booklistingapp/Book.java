@@ -9,13 +9,13 @@ import java.util.ArrayList;
  */
 
 public class Book {
-    String mTitle;
-    ArrayList<String> mAuthors;
-    String mDescription;
-    String mPublishedDate;
-    String mIsbn;
-    String mThumbnailURL;
-    Bitmap mThumbnailBitmap;
+    private String mTitle;
+    private ArrayList<String> mAuthors;
+    private String mDescription;
+    private String mPublishedDate;
+    private String mIsbn;
+    private String mThumbnailURL;
+    private Bitmap mThumbnailBitmap;
 
     public Book(String title, ArrayList<String> authors, String description,
                 String publishedDate, String isbn, String thumbnailUrl, Bitmap thumbnailBitmap){
