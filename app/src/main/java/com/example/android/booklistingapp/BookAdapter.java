@@ -2,7 +2,6 @@ package com.example.android.booklistingapp;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -20,11 +19,6 @@ import java.util.ArrayList;
  */
 
 public class BookAdapter extends ArrayAdapter<Book> {
-
-    private Context mContext;
-    private ArrayList<Book> mbooks;
-    private Bitmap bmp;
-
 
     public BookAdapter(Context context, ArrayList<Book> bookArray) {
         super(context, 0, bookArray);
