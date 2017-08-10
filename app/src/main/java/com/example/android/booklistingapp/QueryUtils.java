@@ -28,6 +28,7 @@ import static com.example.android.booklistingapp.MainActivity.LOG_TAG;
 
 public final class QueryUtils {
 
+    //An empty private constructor makes sure that the class is not going to be initialised.
     private QueryUtils() {
     }
 
@@ -50,11 +51,13 @@ public final class QueryUtils {
 
         HttpURLConnection urlConnection = null;
         InputStream inputStream = null;
+        final int READ_TIMEOUT = 10000;
+        final int CONNECT_TIMEOUT = 15000;
 
         try {
             urlConnection = (HttpURLConnection) url.openConnection();
-            urlConnection.setReadTimeout(10000 /* milliseconds */);
-            urlConnection.setConnectTimeout(15000 /* milliseconds */);
+            urlConnection.setReadTimeout(READ_TIMEOUT /* milliseconds */);
+            urlConnection.setConnectTimeout(CONNECT_TIMEOUT /* milliseconds */);
             urlConnection.setRequestMethod("GET");
             urlConnection.connect();
 
@@ -177,9 +180,8 @@ public final class QueryUtils {
         } catch (IOException e) {
             Log.e(LOG_TAG, "Problem making the HTTP request.", e);
         }
-        List<Book> books = extractBooks(jsonResponse);
 
-        return books;
+        return extractBooks(jsonResponse);;
     }
 
 }
