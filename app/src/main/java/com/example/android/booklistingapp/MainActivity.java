@@ -108,16 +108,15 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     }
 
     private void launchQuery(String searchText) {
-        mAdapter.clear();
         mSearchText.clearFocus();
-        mEmptyView.setText("");
+        mAdapter.clear();
         mEmptyView.setVisibility(View.GONE);
-        mQueryText = searchText;
+        mProgressBar.setVisibility(View.VISIBLE);
 
-        if (!searchText.isEmpty() && searchText != null) {
+        if (isOnline()) {
+            mQueryText = searchText;
 
-            if (isOnline()) {
-                mProgressBar.setVisibility(View.VISIBLE);
+            if (!searchText.isEmpty() && searchText != null) {
 
                 InputMethodManager imm = (InputMethodManager)
                         getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -128,13 +127,12 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                 } else {
                     mLoaderManager.initLoader(BOOK_LOADER_ID, null, MainActivity.this);
                 }
-
             } else {
-                mProgressBar.setVisibility(View.GONE);
-                mEmptyView.setText(R.string.no_connection);
+                Toast.makeText(this, "You need to introduce some text to search", Toast.LENGTH_LONG).show();
             }
         } else {
-            Toast.makeText(this, "You need to introduce some text to search", Toast.LENGTH_LONG).show();
+            mProgressBar.setVisibility(View.GONE);
+            mEmptyView.setText(R.string.no_connection);
         }
     }
 }
