@@ -181,7 +181,7 @@ public final class QueryUtils {
             Log.e(LOG_TAG, "Problem making the HTTP request.", e);
         }
 
-        return extractBooks(jsonResponse);;
+        return extractBooks(jsonResponse);
     }
 
 }
