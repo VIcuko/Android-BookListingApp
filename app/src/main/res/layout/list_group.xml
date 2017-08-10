@@ -8,9 +8,9 @@
     android:drawSelectorOnTop="true"
     android:orientation="horizontal"
     android:paddingBottom="@dimen/vertical_padding"
+    android:paddingLeft="@dimen/horizontal_padding"
     android:paddingRight="@dimen/horizontal_padding"
-    android:paddingTop="@dimen/vertical_padding"
-    android:paddingLeft="@dimen/horizontal_padding">
+    android:paddingTop="@dimen/vertical_padding">
 
 
     <ImageView
@@ -26,19 +26,18 @@
         android:id="@+id/right_arrow"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_chevron_right_black_24dp"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:paddingLeft="@dimen/small_horizontal_padding"
-        />
+        android:src="@drawable/ic_chevron_right_black_24dp" />
 
     <TextView
         android:id="@+id/title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_toRightOf="@id/book_image"
         android:layout_toLeftOf="@id/right_arrow"
+        android:layout_toRightOf="@id/book_image"
         android:paddingBottom="@dimen/book_title_bottom_padding"
         android:textAppearance="?android:textAppearanceLarge"
         android:textColor="@color/primary_text_color"

@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
         mLoaderManager = getLoaderManager();
 
-        if (savedInstanceState != null){
+        if (savedInstanceState != null) {
             mLoaderManager.initLoader(BOOK_LOADER_ID, null, MainActivity.this);
         }
 
@@ -71,7 +71,8 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                 boolean handled = false;
                 if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                     launchQuery(mSearchText.getText().toString());
-                    handled = true;}
+                    handled = true;
+                }
                 return handled;
             }
         });
@@ -120,22 +121,19 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
                 InputMethodManager imm = (InputMethodManager)
                         getSystemService(Context.INPUT_METHOD_SERVICE);
-                imm.hideSoftInputFromWindow(mSearchText.getWindowToken() ,InputMethodManager.HIDE_NOT_ALWAYS);
+                imm.hideSoftInputFromWindow(mSearchText.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
 
                 if (mLoaderManager.getLoader(BOOK_LOADER_ID) != null) {
                     mLoaderManager.restartLoader(BOOK_LOADER_ID, null, MainActivity.this);
-                }
-                else{
+                } else {
                     mLoaderManager.initLoader(BOOK_LOADER_ID, null, MainActivity.this);
                 }
 
-            }
-            else {
+            } else {
                 mProgressBar.setVisibility(View.GONE);
                 mEmptyView.setText(R.string.no_connection);
             }
-        }
-        else{
+        } else {
             Toast.makeText(this, "You need to introduce some text to search", Toast.LENGTH_LONG).show();
         }
     }

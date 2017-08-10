@@ -118,13 +118,13 @@ public final class QueryUtils {
                     }
                 }
 
-                String publishedDate = properties.has("publishedDate") ? properties.getString("publishedDate").substring(0,4) : "";
+                String publishedDate = properties.has("publishedDate") ? properties.getString("publishedDate").substring(0, 4) : "";
 
                 String description = properties.has("description") ? properties.getString("description") : "";
 
                 JSONObject imageLinks = properties.has("imageLinks") ? properties.getJSONObject("imageLinks") : null;
 
-                String urlString="";
+                String urlString = "";
                 Bitmap bitmap = null;
 
                 if (imageLinks != null) {
@@ -132,11 +132,9 @@ public final class QueryUtils {
                     try {
                         URL url = new URL(urlString);
                         bitmap = BitmapFactory.decodeStream(url.openConnection().getInputStream());
-                    }
-                    catch (MalformedURLException e) {
+                    } catch (MalformedURLException e) {
                         e.printStackTrace();
-                    }
-                    catch (IOException e) {
+                    } catch (IOException e) {
                         e.printStackTrace();
                     }
 
